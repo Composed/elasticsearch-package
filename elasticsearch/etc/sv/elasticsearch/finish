@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ $1 -ne 0 ] && [ -n "${ALERT_EMAIL}" ] && which sendmail >/dev/null; then
+  from_addr="${USER}@${HOSTNAME}" 
+  echo "Alerting ${ALERT_EMAIL} of failure"
+  sendmail -i -f "$from_addr" "${ALERT_EMAIL}" <<EOF
+From: runit on $HOSTNAME <${from_addr}>
+To: Alerts <${ALERT_EMAIL}>
+Subject: elasticsearch Failed
+
+on $HOSTNAME
+
+Environment:
+
+$(printenv)
+EOF
+fi

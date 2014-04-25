@@ -1,0 +1,19 @@
+software_groups: &software
+  - base
+
+jobs:
+  elasticsearch-cloud-aws:
+    builder: make
+    base: "ubuntu:12.04"
+    software_groups: *software
+    start_in: elasticsearch-cloud-aws
+    packages:
+      - type: debian
+        name: elasticsearch-cloud-aws
+        version: "1.16.0"
+        depends:
+          - "elasticsearch (>= 0.90.13-1)"
+          - curl
+        target: install
+        repos:
+          - mxm-software
