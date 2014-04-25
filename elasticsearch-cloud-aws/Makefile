@@ -4,7 +4,7 @@ all:
 	dpkg -i ../elasticsearch.deb
 
 install:
-	/usr/share/elasticsearch/plugin -install \
+	/usr/share/elasticsearch/bin/plugin -install \
 	  elasticsearch/elasticsearch-cloud-aws/1.16.0
 	install -D -o root -g root -m 0644 cloud-aws-opts \
 	  /etc/elasticsearch/opts.d/cloud-aws
