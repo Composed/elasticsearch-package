@@ -16,4 +16,4 @@ jobs:
           - curl
         target: install
         repos:
-          - mxm-software
+          - mxm
