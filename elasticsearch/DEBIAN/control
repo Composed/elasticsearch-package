@@ -1,9 +1,9 @@
 Package: elasticsearch
-Version: 0.90.13-1
+Version: 0.90.13-2
 Section: web
 Priority: optional
 Architecture: all
-Depends: libc6, adduser, runit, openjdk-7-jre-headless
+Depends: libc6, adduser, runit, runit-logging, openjdk-7-jre-headless
 Installed-Size: 19763
 Maintainer: Elasticsearch Team <info@elasticsearch.com>
 Description: Open Source, Distributed, RESTful Search Engine
