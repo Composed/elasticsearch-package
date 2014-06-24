@@ -6,8 +6,7 @@ set -e
 case "$1" in
   upgrade)
     if [ "$RESTART_ON_UPGRADE" = "true" ] ; then
-      sv -v down elasticsearch
-      sv -v up elasticsearch
+      sv restart elasticsearch
     fi
     ;;
   remove)
