@@ -1,3 +1,0 @@
-#!/bin/sh
-cd /var/log/service/elasticsearch
-exec chpst -u logger svlogd /var/log/service/elasticsearch

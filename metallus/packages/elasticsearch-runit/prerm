@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+[ -f /etc/default/elasticsearch ] && . /etc/default/elasticsearch
+
+case "$1" in
+  upgrade)
+    if [ "$RESTART_ON_UPGRADE" = "true" ] ; then
+      sv restart elasticsearch
+    fi
+    ;;
+  remove)
+    sv -v exit elasticsearch
+    rm /etc/service/elasticsearch
+    ;;
+esac
+

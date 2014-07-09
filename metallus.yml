@@ -2,6 +2,22 @@ software_groups: &software
   - base
 
 jobs:
+  elasticsearch-runit:
+    builder: make
+    base: ubuntu:12.04
+    software_groups: *software
+    packages:
+      - type: debian
+        name: elasticsearch-runit
+        version: 1.2.1
+        depends:
+          - libc6
+          - runit
+          - runit-common
+          - openjdk-7-jre-headless
+        target: install
+        repos:
+          - mxm
   elasticsearch-cloud-aws:
     builder: make
     base: "ubuntu:12.04"

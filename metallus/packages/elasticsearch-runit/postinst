@@ -1,0 +1,39 @@
+#!/bin/sh
+
+set -e
+
+[ -f /etc/default/elasticsearch ] && . /etc/default/elasticsearch
+
+
+case "$1" in
+  configure)
+    if ! getent group "$ES_GROUP" > /dev/null 2>&1 ; then
+      groupadd --system "$ES_GROUP"
+    fi
+    if ! id "$ES_USER" > /dev/null 2>&1 ; then
+      useradd --system --home "$ES_HOME" --gid "$ES_GROUP" --no-user-group \
+        --shell /usr/sbin/nologin "$ES_USER"
+    fi
+
+    # Set ownership and permissions
+
+    for dir in "$LOG_DIR" "$DATA_DIR"; do
+      mkdir -p "$dir"
+      chown -R "$ES_USER:$ES_GROUP" "$dir"
+      find "$dir" -type d -exec chmod 2755 "{}" \+
+    done
+
+    # configuration files should not be modifiable by elasticsearch user, as this can be a security issue
+    chown -Rh root:root "${CONF_DIR}"
+    find "${CONF_DIR}" -type f -exec chmod 0644 "{}" \+
+    find "${CONF_DIR}" -type d -exec chmod 0755 "{}" \+
+
+    ln -s /etc/sv/elasticsearch /etc/service/elasticsearch
+
+    # if $2 is set, this is an upgrade
+    if ( [ -n "$2" ] && [ "$RESTART_ON_UPGRADE" = "true" ] ) ; then
+      sv restart elasticsearch
+    fi
+    ;;
+esac
+
