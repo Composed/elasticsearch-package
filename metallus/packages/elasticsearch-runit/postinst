@@ -4,6 +4,7 @@ set -e
 
 [ -f /etc/default/elasticsearch ] && . /etc/default/elasticsearch
 
+LOG_SERVICE_DIR=/var/log/service/elasticsearch
 
 case "$1" in
   configure)
@@ -27,6 +28,9 @@ case "$1" in
     chown -Rh root:root "${CONF_DIR}"
     find "${CONF_DIR}" -type f -exec chmod 0644 "{}" \+
     find "${CONF_DIR}" -type d -exec chmod 0755 "{}" \+
+
+    chown -R logger:logger "$LOG_SERVICE_DIR"
+    find "$LOG_SERVICE_DIR" -type d -exec chmod 2755 "{}" \+
 
     ln -s /etc/sv/elasticsearch /etc/service/elasticsearch
 
