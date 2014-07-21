@@ -1,4 +1,4 @@
-ELASTICSEARCH_PLUGIN=2.1.1
+ELASTICSEARCH_PLUGIN=1.16.0
 
 all:
 	apt-get -qq update
