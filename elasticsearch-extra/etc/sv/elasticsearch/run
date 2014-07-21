@@ -96,11 +96,7 @@ export ES_JAVA_OPTS
 # Check DAEMON exists
 test -x $DAEMON || exit 0
 
-if [ -x "$JAVA_HOME/bin/java" ]; then
-  JAVA="$JAVA_HOME/bin/java"
-else
-  JAVA="$(command -v java)"
-fi
+JAVA="$(which java)"
 
 if [ ! -x "$JAVA" ]; then
   echo "Could not find any executable java binary. Please install java in your PATH or set JAVA_HOME"
@@ -128,7 +124,26 @@ if [ -r "/usr/share/elasticsearch/bin/elasticsearch.in.sh" ]; then
   . "/usr/share/elasticsearch/bin/elasticsearch.in.sh"
 fi
 
-ES_PARAMS="-Delasticsearch -Des.foreground=yes"
+ES_PARAMS="-Delasticsearch -Des.path.home=${ES_HOME} -Des.foreground=yes"
 
-exec chpst -u ${ES_USER}:${ES_GROUP} "$JAVA" $JAVA_OPTS $ES_JAVA_OPTS $ES_PARAMS -Des.path.home="$ES_HOME" -cp "$ES_CLASSPATH" $DAEMON_OPTS \
-                org.elasticsearch.bootstrap.ElasticSearch
+ES_CLASSPATH=":/usr/share/elasticsearch/lib/elasticsearch-1.2.1.jar:/usr/share/elasticsearch/lib/*:/usr/share/elasticsearch/lib/sigar/*"
+
+
+verlte() {
+  [ "$1" = "$(echo -e "$1\n$2" | sort -V | head -n1)" ]
+}
+
+verlt() {
+  [ "$1" = "$2" ] && return 1 || verlte $1 $2
+}
+
+
+VERSION="$("$JAVA" $JAVA_OPTS $ES_JAVA_OPTS $ES_PARAMS -cp "$ES_CLASSPATH" $DAEMON_OPTS org.elasticsearch.Version | grep -o '[0-9]\.[0-9]\.[0-9]' | head -n 1)"
+if [ $(verlt "$VERSION" "1.2.1") ]
+then
+  class="org.elasticsearch.bootstrap.ElasticSearch"
+else
+  class="org.elasticsearch.bootstrap.Elasticsearch"
+fi
+
+exec chpst -u ${ES_USER}:${ES_GROUP} "$JAVA" $JAVA_OPTS $ES_PARAMS  -cp "$ES_CLASSPATH" $DAEMON_OPTS org.elasticsearch.bootstrap.Elasticsearch
