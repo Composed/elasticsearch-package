@@ -1,0 +1,13 @@
+#! /bin/bash
+
+export DEBIAN_FRONTEND=noninteractive
+
+sudo apt-get update -qq
+sudo apt-get install -y curl make
+
+apt-key adv --keyserver 'keys.gnupg.net' --recv-keys '7F40EF0A'
+
+echo "deb http://apt.mxmdev.com stable main" > /etc/apt/sources.list.d/apt.mxmdev.com.stable.list
+
+apt-get update -qq
+apt-get install -y runit-common
