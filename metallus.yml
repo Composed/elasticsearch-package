@@ -20,13 +20,13 @@ jobs:
           - mxm-public
   elasticsearch-cloud-aws:
     builder: make
-    base: "ubuntu:12.04"
+    base: ubuntu:12.04
     software_groups: *software
     start_in: elasticsearch-cloud-aws
     packages:
       - type: debian
         name: elasticsearch-cloud-aws
-        version: "1.16.0"
+        version: 1.16.0
         depends:
           - elasticsearch-runit
         target: install
