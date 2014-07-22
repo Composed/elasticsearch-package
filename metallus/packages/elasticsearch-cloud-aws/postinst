@@ -14,5 +14,4 @@ if ! [ -f "$security_groups_opts" ]; then
     > "${security_groups_opts}"
 fi
 
-sv -v down elasticsearch
-sv -v up elasticsearch
+sv restart elasticsearch >/dev/null 2>&1

@@ -9,7 +9,7 @@ jobs:
     packages:
       - type: debian
         name: elasticsearch-runit
-        version: 0.90.13-2
+        version: 0.90.13-3
         depends:
           - libc6
           - runit
@@ -26,9 +26,9 @@ jobs:
     packages:
       - type: debian
         name: elasticsearch-cloud-aws
-        version: 1.16.0-2
+        version: 1.16.0-3
         depends:
-          - elasticsearch-runit (= 0.90.13-2)
+          - elasticsearch-runit (= 0.90.13-3)
         target: install
         repos:
           - mxm-public

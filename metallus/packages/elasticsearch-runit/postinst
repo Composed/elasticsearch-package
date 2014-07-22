@@ -36,7 +36,7 @@ case "$1" in
 
     # if $2 is set, this is an upgrade
     if ( [ -n "$2" ] && [ "$RESTART_ON_UPGRADE" = "true" ] ) ; then
-      sv restart elasticsearch
+      sv restart elasticsearch >/dev/null 2>&1
     fi
     ;;
 esac
