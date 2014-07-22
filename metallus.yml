@@ -9,7 +9,7 @@ jobs:
     packages:
       - type: debian
         name: elasticsearch-runit
-        version: 1.2.1-1
+        version: 0.90.13
         depends:
           - libc6
           - runit
@@ -17,7 +17,7 @@ jobs:
           - openjdk-7-jre-headless
         target: install
         repos:
-          - mxm
+          - mxm-public
   elasticsearch-cloud-aws:
     builder: make
     base: "ubuntu:12.04"
@@ -28,8 +28,7 @@ jobs:
         name: elasticsearch-cloud-aws
         version: "1.16.0"
         depends:
-          - "elasticsearch (>= 0.90.13-1)"
-          - curl
+          - elasticsearch-runit
         target: install
         repos:
-          - mxm
+          - mxm-public
