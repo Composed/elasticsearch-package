@@ -128,22 +128,12 @@ ES_PARAMS="-Delasticsearch -Des.path.home=${ES_HOME} -Des.foreground=yes"
 
 ES_CLASSPATH=":/usr/share/elasticsearch/lib/elasticsearch-1.2.1.jar:/usr/share/elasticsearch/lib/*:/usr/share/elasticsearch/lib/sigar/*"
 
+VERSION="$("$JAVA" $JAVA_OPTS $ES_JAVA_OPTS $ES_PARAMS -cp "$ES_CLASSPATH" $DAEMON_OPTS org.elasticsearch.Version | grep -o '[0-9]*\.[0-9]*\.[0-9]*' | head -n 1)"
 
-verlte() {
-  [ "$1" = "$(echo -e "$1\n$2" | sort -V | head -n1)" ]
-}
-
-verlt() {
-  [ "$1" = "$2" ] && return 1 || verlte $1 $2
-}
-
-
-VERSION="$("$JAVA" $JAVA_OPTS $ES_JAVA_OPTS $ES_PARAMS -cp "$ES_CLASSPATH" $DAEMON_OPTS org.elasticsearch.Version | grep -o '[0-9]\.[0-9]\.[0-9]' | head -n 1)"
-if [ $(verlt "$VERSION" "1.2.1") ]
+JAVA_BOOT_CLASS="org.elasticsearch.bootstrap.Elasticsearch"
+if [ "$VERSION" \< "1.2.1" ]
 then
-  class="org.elasticsearch.bootstrap.ElasticSearch"
-else
-  class="org.elasticsearch.bootstrap.Elasticsearch"
+  JAVA_BOOT_CLASS="org.elasticsearch.bootstrap.ElasticSearch"
 fi
 
-exec chpst -u ${ES_USER}:${ES_GROUP} "$JAVA" $JAVA_OPTS $ES_PARAMS  -cp "$ES_CLASSPATH" $DAEMON_OPTS org.elasticsearch.bootstrap.Elasticsearch
+exec chpst -u ${ES_USER}:${ES_GROUP} "$JAVA" $JAVA_OPTS $ES_PARAMS  -cp "$ES_CLASSPATH" $DAEMON_OPTS $JAVA_BOOT_CLASS
