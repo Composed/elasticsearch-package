@@ -4,14 +4,28 @@
 
 set -e
 
-if [ -z "${AWS_SECURITY_GROUPS}" ]; then
-  AWS_SECURITY_GROUPS="$(curl -Ss http://169.254.169.254/1.0/meta-data/security-groups/ | paste -d, -s - )"
-fi
+case "$1" in
+  configure)
+    if [ -z "${AWS_SECURITY_GROUPS}" ]; then
+      AWS_SECURITY_GROUPS="$(curl -Ss http://169.254.169.254/1.0/meta-data/security-groups/ | paste -d, -s - )"
+    fi
 
-security_groups_opts="/etc/elasticsearch/opts.d/cloud-aws-groups"
-if ! [ -f "$security_groups_opts" ]; then
-  echo "-Des.discovery.ec2.groups=${AWS_SECURITY_GROUPS}" \
-    > "${security_groups_opts}"
-fi
+    security_groups_opts="/etc/elasticsearch/opts.d/cloud-aws-groups"
+    if ! [ -f "$security_groups_opts" ]; then
+      echo "-Des.discovery.ec2.groups=${AWS_SECURITY_GROUPS}" \
+        > "${security_groups_opts}"
+    fi
 
-sv restart elasticsearch >/dev/null 2>&1
+    # if $2 is set, this is an upgrade
+    if ( [ -n "$2" ] && [ "$RESTART_ON_UPGRADE" = "true" ] ) ; then
+      sv restart elasticsearch
+    fi
+    ;;
+
+  *)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 0
+    ;;
+esac
+
+
