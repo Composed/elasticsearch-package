@@ -28,7 +28,7 @@ jobs:
         name: elasticsearch-cloud-aws
         version: 2.1.1-2
         depends:
-          - "elasticsearch (>= 1.2.1-2)"
+          - "elasticsearch-runit (>= 1.2.1-2)"
           - curl
         target: install
         repos:
