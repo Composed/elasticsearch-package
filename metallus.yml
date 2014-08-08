@@ -17,7 +17,7 @@ jobs:
           - openjdk-7-jre-headless
         target: install
         repos:
-          - mxm
+          - mxm-public
   elasticsearch-cloud-aws:
     builder: make
     base: "ubuntu:12.04"
@@ -32,4 +32,4 @@ jobs:
           - curl
         target: install
         repos:
-          - mxm
+          - mxm-public
