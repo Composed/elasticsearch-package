@@ -26,9 +26,9 @@ jobs:
     packages:
       - type: debian
         name: elasticsearch-cloud-aws
-        version: "1.16.0"
+        version: "2.1.1"
         depends:
-          - "elasticsearch (>= 0.90.13-1)"
+          - "elasticsearch (>= 1.2.1)"
           - curl
         target: install
         repos:
