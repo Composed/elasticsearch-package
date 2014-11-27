@@ -1,11 +1,12 @@
-software_groups: &software
-  - base
-
 jobs:
   elasticsearch-runit:
     builder: make
-    base: ubuntu:12.04
-    software_groups: *software
+    base: "quay.io/madebymany/build-bases:trusty"
+    build_depends:
+      - libc6
+      - runit
+      - runit-common
+      - openjdk-7-jre-headless
     packages:
       - type: debian
         name: elasticsearch-runit
@@ -20,15 +21,16 @@ jobs:
           - mxm-public
   elasticsearch-cloud-aws:
     builder: make
-    base: ubuntu:12.04
-    software_groups: *software
+    base: "quay.io/madebymany/build-bases:trusty"
     start_in: elasticsearch-cloud-aws
     packages:
       - type: debian
         name: elasticsearch-cloud-aws
         version: 1.16.0-4
         depends:
-          - elasticsearch-runit (= 0.90.13-5)
+          - "elasticsearch-runit (= 0.90.13-5)"
+          - "curl"
+          - "python-yaml"
         target: install
         repos:
           - mxm-public
