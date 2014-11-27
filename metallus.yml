@@ -1,3 +1,8 @@
+packages:
+  branch_codenames:
+    0.90.13: trusty-unstable
+    0.90.13-production: trusty-stable
+
 jobs:
   elasticsearch-runit:
     builder: make
