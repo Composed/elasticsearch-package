@@ -28,6 +28,9 @@ jobs:
     builder: make
     base: "quay.io/madebymany/build-bases:trusty"
     start_in: elasticsearch-cloud-aws
+    build_depends:
+      - "openjdk-7-jre-headless" 
+      - "runit"
     packages:
       - type: debian
         name: elasticsearch-cloud-aws
