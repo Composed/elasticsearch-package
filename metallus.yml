@@ -7,6 +7,8 @@ jobs:
   elasticsearch-runit:
     builder: make
     base: "quay.io/madebymany/build-bases:trusty"
+    apt_keys:
+      - "https://apt.mxmdev.com/mxmops.gpg.key"
     apt_repos:
       - "deb https://apt.mxmdev.com stable main"
     build_depends:
