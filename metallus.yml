@@ -1,12 +1,12 @@
 packages:
   branch_codenames:
-    0.90.13: trusty-unstable
-    0.90.13-production: trusty-stable
+    0.90.13: precise-unstable
+    0.90.13-production: precise-stable
 
 jobs:
   elasticsearch-runit:
     builder: make
-    base: "quay.io/madebymany/build-bases:trusty"
+    base: "quay.io/madebymany/build-bases:precise"
     apt_keys:
       - "https://apt.mxmdev.com/mxmops.gpg.key"
     apt_repos:
@@ -30,7 +30,7 @@ jobs:
           - mxm-public
   elasticsearch-cloud-aws:
     builder: make
-    base: "quay.io/madebymany/build-bases:trusty"
+    base: "quay.io/madebymany/build-bases:precise"
     start_in: elasticsearch-cloud-aws
     build_depends:
       - "openjdk-7-jre-headless" 
