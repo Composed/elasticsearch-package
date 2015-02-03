@@ -22,22 +22,11 @@ case "$1" in
           > "${security_groups_opts}"
       fi
 
-      python <<EOF
-import yaml
-
-with open("/etc/elasticsearch/elasticsearch.yml", "r+") as f:
-    contents = yaml.load(f)
-    contents["script.disable_dynamic"] = True
-    f.seek(0)
-    f.truncate()
-    f.write(yaml.dump(contents, default_flow_style=False))
-EOF
-
-    # if $2 is set, this is an upgrade
-    if ( [ -n "$2" ] && [ "$RESTART_ON_UPGRADE" = "true" ] ) ; then
-      sv restart elasticsearch
-    fi
-    ;;
+      # if $2 is set, this is an upgrade
+      if ( [ -n "$2" ] && [ "$RESTART_ON_UPGRADE" = "true" ] ) ; then
+        sv restart elasticsearch
+      fi
+      ;;
 
     triggered)
         reload_service

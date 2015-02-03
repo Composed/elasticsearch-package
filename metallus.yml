@@ -19,7 +19,7 @@ jobs:
     packages:
       - type: debian
         name: elasticsearch-runit
-        version: 0.90.13-5
+        version: 0.90.13-6
         depends:
           - libc6
           - runit
@@ -38,9 +38,9 @@ jobs:
     packages:
       - type: debian
         name: elasticsearch-cloud-aws
-        version: 1.16.0-4
+        version: 1.16.0-5
         depends:
-          - "elasticsearch-runit (= 0.90.13-5)"
+          - "elasticsearch-runit (= 0.90.13-6)"
           - "curl"
           - "python-yaml"
         target: install

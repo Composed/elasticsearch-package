@@ -24,6 +24,19 @@ case "$1" in
       find "$dir" -type d -exec chmod 2755 "{}" \+
     done
 
+    python <<EOF
+import yaml
+
+with open("/etc/elasticsearch/elasticsearch.yml", "r+") as f:
+    contents = yaml.load(f)
+    if contents is None:
+        contents = {}
+    contents["script.disable_dynamic"] = True
+    f.seek(0)
+    f.truncate()
+    f.write(yaml.dump(contents, default_flow_style=False))
+EOF
+
     # configuration files should not be modifiable by elasticsearch user, as this can be a security issue
     chown -Rh root:root "${CONF_DIR}"
     find "${CONF_DIR}" -type f -exec chmod 0644 "{}" \+
