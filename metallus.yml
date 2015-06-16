@@ -22,7 +22,7 @@ jobs:
         version: 0.90.13
         depends:
           - openjdk-7-jre-headless
-          - elasticsearch=0.90.13
+          - elasticsearch (= 0.90.13)
         target: install
         repos:
           - mxm-public
