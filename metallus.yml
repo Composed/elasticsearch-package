@@ -28,4 +28,3 @@ jobs:
         target: install
         repos:
           - mxm-public
-
