@@ -6,7 +6,7 @@ packages:
 jobs:
   elasticsearch-ec2:
     builder: make
-    base: "quay.io/madebymany/build-bases:precise"
+    base: "quay.io/madebymany/build-bases:trusty"
     apt_keys:
       - "https://apt.mxmdev.com/mxmops.gpg.key"
       - "https://packages.elastic.co/GPG-KEY-elasticsearch"
