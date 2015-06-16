@@ -8,3 +8,4 @@ all:
 install:
 	install -o root -g root config/elasticsearch.yml $(CONFIG_ROOT)/elasticsearch.yml
 	/usr/share/elasticsearch/bin/plugin install elasticsearch/elasticsearch-cloud-aws/$(ELASTICSEARCH_AWS_VERSION)
+	rm -rf /tmp/hsperfdata_root
