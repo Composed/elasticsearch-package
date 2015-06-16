@@ -1,6 +1,6 @@
 packages:
   branch_codenames:
-    0.90.13: trusty-unstable
+    wip-use-elasticsearch-default-packages: trusty-unstable
     0.90.13-production: trusty-stable
 
 jobs:
