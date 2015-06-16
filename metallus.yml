@@ -20,7 +20,7 @@ jobs:
       - type: debian
         name: elasticsearch-ec2
         version: 0.90.13
-        conflicts:
+        replaces:
           - elasticsearch
         depends:
           - openjdk-7-jre-headless
