@@ -1,48 +1,28 @@
 packages:
   branch_codenames:
-    0.90.13: precise-unstable
-    0.90.13-production: precise-stable
+    0.90.13: trusty-unstable
+    0.90.13-production: trusty-stable
 
 jobs:
-  elasticsearch-runit:
+  elasticsearch-ec2:
     builder: make
     base: "quay.io/madebymany/build-bases:precise"
     apt_keys:
       - "https://apt.mxmdev.com/mxmops.gpg.key"
+      - "https://packages.elastic.co/GPG-KEY-elasticsearch"
     apt_repos:
       - "deb https://apt.mxmdev.com stable main"
+      - "deb https://packages.elastic.co/elasticsearch/0.90/debian stable main"
     build_depends:
-      - libc6
-      - runit
-      - runit-common
       - openjdk-7-jre-headless
+      - elasticsearch=0.90.13
     packages:
       - type: debian
-        name: elasticsearch-runit
-        version: 0.90.13-6
+        name: elasticsearch-ec2
+        version: 0.90.13
         depends:
-          - libc6
-          - runit
-          - runit-common
           - openjdk-7-jre-headless
-        target: install
-        repos:
-          - mxm-public
-  elasticsearch-cloud-aws:
-    builder: make
-    base: "quay.io/madebymany/build-bases:precise"
-    start_in: elasticsearch-cloud-aws
-    build_depends:
-      - "openjdk-7-jre-headless" 
-      - "runit"
-    packages:
-      - type: debian
-        name: elasticsearch-cloud-aws
-        version: 1.16.0-5
-        depends:
-          - "elasticsearch-runit (= 0.90.13-6)"
-          - "curl"
-          - "python-yaml"
+          - elasticsearch=0.90.13
         target: install
         repos:
           - mxm-public
