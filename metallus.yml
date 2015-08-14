@@ -19,7 +19,7 @@ jobs:
     packages:
       - type: debian
         name: elasticsearch-ec2
-        version: 0.90.13
+        version: 0.90.13-1
         replaces:
           - elasticsearch
         depends:
