@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -eo pipefail
+
+case "$1" in
+  configure)
+
+    config="/etc/elasticsearch/elasticsearch.yml"
+    security_groups=$(curl -s "http://169.254.169.254/latest/meta-data/security-groups")
+    if [[ -z "$(grep $security_groups $config)" ]]; then
+      cat <<-EOF >> $config
+discovery.ec2.groups: "${security_groups}"
+discovery.ec2.all_group: true
+EOF
+    fi
+    ;;
+esac
+
