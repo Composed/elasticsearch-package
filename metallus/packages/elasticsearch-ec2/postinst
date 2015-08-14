@@ -1,6 +1,9 @@
-#!/bin/sh
-
+#!/bin/bash
 set -eo pipefail
+
+restart() {
+  service elasticsearch restart
+}
 
 case "$1" in
   configure)
@@ -13,6 +16,8 @@ discovery.ec2.groups: "${security_groups}"
 discovery.ec2.all_group: true
 EOF
     fi
+
+    restart
     ;;
 esac
 
