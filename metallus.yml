@@ -1,10 +1,15 @@
+packages:
+  branch_codenames:
+    master: trusty-unstable
+    production: trusty-stable
+
 software_groups: &software
   - base
 
 jobs:
   elasticsearch-runit:
     builder: make
-    base: ubuntu:12.04
+    base: "quay.io/madebymany/build-bases:trusty" 
     software_groups: *software
     packages:
       - type: debian
@@ -17,10 +22,10 @@ jobs:
           - openjdk-7-jre-headless
         target: install
         repos:
-          - mxm-public
+          - composed-public
   elasticsearch-cloud-aws:
     builder: make
-    base: "ubuntu:12.04"
+    base: "quay.io/madebymany/build-bases:trusty"
     software_groups: *software
     start_in: elasticsearch-cloud-aws
     packages:
@@ -32,4 +37,4 @@ jobs:
           - curl
         target: install
         repos:
-          - mxm-public
+          - composed-public
