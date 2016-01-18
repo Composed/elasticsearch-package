@@ -1,9 +1,9 @@
-ELASTICSEARCH_VERSION := 1.2.1
+ELASTICSEARCH_VERSION := 0.90.13
 ELASTICSEARCH_TARBALL := elasticsearch-$(ELASTICSEARCH_VERSION).tar.gz
-ELASTICSEARCH_URL := https://download.elasticsearch.org/elasticsearch/elasticsearch/$(ELASTICSEARCH_TARBALL)
+ELASTICSEARCH_URL := https://download.elastic.co/elasticsearch/elasticsearch/$(ELASTICSEARCH_TARBALL)
 ELASTICSEARCH_EXTRACT := elasticsearch-$(ELASTICSEARCH_VERSION)
 INSTALL_ROOT := /usr/share/elasticsearch
-ELASTICSEARCH_SHA1_URL=https://download.elasticsearch.org/elasticsearch/elasticsearch/$(ELASTICSEARCH_TARBALL).sha1.txt
+ELASTICSEARCH_SHA1_URL=https://download.elastic.co/elasticsearch/elasticsearch/$(ELASTICSEARCH_TARBALL).sha1.txt
 ELASTICSEARCH_SHA1=$(ELASTICSEARCH_TARBALL).sha1.txt
 CONFIG_ROOT := /etc/elasticsearch
 LOG_ROOT := /var/log/service/elasticsearch
